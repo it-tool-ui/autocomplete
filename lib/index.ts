@@ -1,5 +1,5 @@
 import "./index.css";
-import Button from "./components/button.component";
-import type { ButtonProps } from "./components/button.types";
+import Autocomplete from "./components/autocomplete.component";
+import type { AutocompleteProps } from "./components/autocomplete.types";
 
-export { Button, ButtonProps };
+export { Autocomplete, AutocompleteProps };
