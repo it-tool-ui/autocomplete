@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
-import clsx from "clsx";
 import { type AutocompleteProps, PositionType } from "./autocomplete.types";
 import useClickAway from "../hooks/use-click-away";
+import { cn } from "../utils";
 
 const OPTION_HEIGHT = 32;
 
@@ -9,6 +9,10 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   value,
   placeholder,
   className,
+  inputClassName,
+  inputWrapperClassName,
+  optionClassName,
+  optionsWrapperClassName,
   disabled,
   options,
   onChange,
@@ -120,9 +124,9 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   };
 
   return (
-    <div ref={dropdownRef} className={clsx("relative w-[12rem]", className)}>
+    <div ref={dropdownRef} className={cn("relative w-[12rem]", className)}>
       <div
-        className={clsx(
+        className={cn(
           "flex items-center rounded-md border px-4 py-2",
           {
             "border-neutral-300 text-neutral-300 dark:border-neutral-600 dark:text-neutral-700":
@@ -130,12 +134,16 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
             "border-neutral-400 text-neutral-600 hover:border-cyan-500 dark:text-neutral-200":
               !disabled,
           },
-          { "border-cyan-500": opening }
+          { "border-cyan-500": opening },
+          inputWrapperClassName
         )}
       >
         <input
           type="text"
-          className="w-full bg-transparent text-sm focus:outline-none"
+          className={cn(
+            "w-full bg-transparent text-sm focus:outline-none",
+            inputClassName
+          )}
           disabled={disabled}
           placeholder={placeholder}
           value={value}
@@ -146,22 +154,24 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
       </div>
       <div
         ref={scrollRef}
-        className={clsx(
+        className={cn(
           "absolute left-0 z-10 max-h-[13rem] min-w-full max-w-[calc(100%+2rem)] overflow-auto rounded-sm border border-neutral-200 bg-white dark:border-neutral-600 dark:bg-neutral-700",
           {
             "bottom-[calc(100%+0.5rem)]": position === PositionType.Top,
             "top-[calc(100%+0.5rem)]": position === PositionType.Bottom,
           },
-          { hidden: !opening || filteredOptions.length === 0 }
+          { hidden: !opening || filteredOptions.length === 0 },
+          optionsWrapperClassName
         )}
       >
         {filteredOptions.map((item) => (
           <p
             key={item}
             style={{ height: OPTION_HEIGHT }}
-            className={clsx(
+            className={cn(
               "flex cursor-pointer items-center overflow-hidden text-ellipsis whitespace-nowrap px-3 text-sm font-medium",
-              { "bg-neutral-300 dark:bg-neutral-500": selectedOption === item }
+              { "bg-neutral-300 dark:bg-neutral-500": selectedOption === item },
+              optionClassName
             )}
             onClick={() => handleSelect(item)}
             onMouseEnter={() => handleHover(item)}
