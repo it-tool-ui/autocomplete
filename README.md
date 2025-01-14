@@ -15,4 +15,24 @@ npm install @it-tool-ui/autocomplete
 
 ```js
 import { Autocomplete } from "@it-tool-ui/autocomplete";
+
+<Autocomplete
+  placeholder="Input animal"
+  disabled={false}
+  value={animal}
+  onChange={setAnimal}
+  options={[
+    "Cat",
+    "Dog",
+    "Zebra",
+    "Bird",
+    "Snake",
+    "Frog",
+    "Elephant",
+    "Buffalo",
+    "Mouse",
+    "Tiger",
+    "Lion",
+  ]}
+/>;
 ```
